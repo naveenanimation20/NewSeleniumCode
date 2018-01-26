@@ -46,6 +46,7 @@ public class LocatorConcept {
 		//7. class name: not recommended (its not unique) --V
 		driver.findElement(By.className("phone-no")).sendKeys("test@yahoo.com");
 		
+		
 		//8. tag name: will cover later
 		
 		//driver.quit();
