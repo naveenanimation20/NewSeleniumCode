@@ -7,6 +7,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
 public class CustomXpath {
 
@@ -34,17 +35,24 @@ public class CustomXpath {
 		driver.switchTo().frame("mainpanel");
 		
 		driver.findElement(By.xpath("//a[@title='Contacts' and text()='Contacts']")).click();
-		Thread.sleep(5000);
-
-		driver.findElement(By.xpath("//a[text()='AAAXXX fsfsf']//parent::td[@class='datalistrow']"
-				+ "//preceding-sibling::td[@class='datalistrow']//input[@name='contact_id']")).click();
 		
-//		List<WebElement> checkboxList = driver.findElements(By.xpath("//input[@type='checkbox' and @name='contact_id']"));
-//		System.out.println(checkboxList.size());
-//
-//		for(int i=0; i<checkboxList.size(); i++){
-//			checkboxList.get(i).click();
-//		}
+		Thread.sleep(5000);
+		driver.switchTo().frame("intercom-borderless-frame");
+		Actions action = new Actions(driver);
+		action.moveToElement(driver.findElement(By.xpath("//div[contains(@class,'intercom-blocks')]"))).build().perform();
+		driver.findElement(By.xpath("//div[contains(@class,'intercom-borderless-dismiss-button')]//span")).click(); 
+		
+		driver.switchTo().frame("mainpanel");
+
+//		driver.findElement(By.xpath("//a[text()='AAAXXX fsfsf']//parent::td[@class='datalistrow']"
+//				+ "//preceding-sibling::td[@class='datalistrow']//input[@name='contact_id']")).click();
+		
+		List<WebElement> checkboxList = driver.findElements(By.xpath("//input[@type='checkbox' and @name='contact_id']"));
+		System.out.println(checkboxList.size());
+
+		for(int i=1; i<checkboxList.size(); i=i+2){
+			checkboxList.get(i).click();
+		}
 
 		//String text = driver.findElement(By.xpath("//a[contains(text(),'Features')]")).getText();
 		//System.out.println(text);
